@@ -25,7 +25,6 @@ public:
     void printAllProducts();
     Product printProductByName(std::string& name);
     void updateProductQuantityByName(std::string& name, int quantity);
-
     void addClient(Client& c);
     void addOrder(Order& o);
     void printAllClients();
@@ -33,7 +32,6 @@ public:
     void addProductToClientShoppingCart(std::string& clientIdOrName, Product& p);
     void removeProductFromClientShoppingCart( std::string& clientIdOrName, std::string& productName);
     void updateProductQuantityInClientShoppingCart( std::string& clientIdOrName,  std::string& productName, int quantity);
-
     void validateClientOrder(std::string& clientIdOrName);
     void updateOrderStatus(int orderId, std::string newStatus);
     void printAllOrders();

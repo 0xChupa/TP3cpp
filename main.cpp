@@ -1,241 +1,232 @@
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
-#include "store.h"
 #include "client.h"
 #include "product.h"
 #include "order.h"
+#include "store.h"
 
 int main()
 {
-    Store s("EasyStore", "1 rue de la Boutique", "01 02 03 04 05");
-    bool continueProgram = true;
-    while (true)
+    // Création du magasin
+    Store store("Easy Store", "Rue de la paix", "01 02 03 04 05");
+    // Création des clients
+    Client client1(1, "Alexandre", "Tavernier");
+    Client client2(2, "Nina", "Guerin");
+    Client client3(3, "Clois", "Fernandes");
+    store.addClient(client1);
+    store.addClient(client2);
+    store.addClient(client3);
+
+    // Création de quelques produits
+    Product product1("Livre", "Harry Potter et la Chambre des Secrets", 10, 8);
+    Product product2("Livre", "Harry Potter et le Prisonnier d'Azkaban", 8, 8);
+    Product product3("Livre", "Harry Potter et la Coupe de Feu", 3, 8);
+    Product product4("Cartable", "Cartable Tintin", 5, 30);
+    Product product5("Cartable", "Cartable Harry Potter", 2, 30);
+    Product product6("Cartable", "Cartable Pokemon", 1, 30);
+    Product product7("PS4", "PS4 Slim", 2, 300);
+    Product product8("PS4", "PS4 Pro", 1, 400);
+    Product product9("Nintendo Switch", "Switch Lite", 0, 200);
+    Product product10("Nintendo Switch", "Switch Pro", 1, 300);
+    store.addProduct(product1);
+    store.addProduct(product2);
+    store.addProduct(product3);
+    store.addProduct(product4);
+    store.addProduct(product5);
+    store.addProduct(product6);
+    store.addProduct(product7);
+    store.addProduct(product8);
+    store.addProduct(product9);
+    store.addProduct(product10);
+
+    bool quit = false;
+
+    while (!quit)
     {
-        std::cout << "Menu principal :" << std::endl;
-        std::cout << "1. Gestion du magasin" << std::endl;
-        std::cout << "2. Gestion des utilisateurs" << std::endl;
-        std::cout << "3. Gestion des commandes" << std::endl;
-        std::cout << "4. Quitter" << std::endl;
-        std::cout << "Votre choix : ";
+        std::cout << "1. Gestion du magasin \n2. Gestion des utilisateurs \n3. Gestion des commandes \n4. Quitter \n"
+                  << std::endl;
+        int choiceInitial;
+        std::cin >> choiceInitial;
 
-        int choice;
-        std::cin >> choice;
-
-        switch (choice)
+        switch (choiceInitial)
         {
         case 1:
         {
-            // Sous-menu de gestion du magasin
-            while (continueProgram = true)
+            while(true)
+            std::cout << "Gestion du magasin \n1. Ajouter un produit \n2. Afficher les produits \n3. Mettre à jour les quantités \n4. Retour \n"
+                      << std::endl;
+            int choiceSecondaire;
+            std::cin >> choiceSecondaire;
+            switch (choiceSecondaire)
             {
-                std::cout << "Gestion du magasin :" << std::endl;
-                std::cout << "1. Ajouter un produit" << std::endl;
-                std::cout << "2. Afficher les produits" << std::endl;
-                std::cout << "3. Mettre à jour les quantités" << std::endl;
-                std::cout << "4. Retour" << std::endl;
-                std::cout << "Votre choix : ";
-
-                int choice;
-                std::cin >> choice;
-
-                switch (choice)
-                {
-                case 1:
-                {
-                    // Ajout d'un produit
-                    std::string title;
-                    std::string description;
-                    int quantity;
-                    double unitPrice;
-                    std::cout << "Titre : ";
-                    std::cin >> title;
-                    std::cout << "Description : ";
-                    std::cin >> description;
-                    std::cout << "Quantité : ";
-                    std::cin >> quantity;
-                    std::cout << "Prix unitaire : ";
-                    std::cin >> unitPrice;
-                    Product p(title, description, quantity, unitPrice);
-                    s.addProduct(p);
-                    break;
-                }
-                case 2:
-                {
-                    // Affichage des produits
-                    s.printAllProducts();
-                    break;
-                }
-                case 3:
-                {
-                    // Mise à jour des quantités
-                    std::string name;
-                    int quantity;
-                    std::cout << "Nom : ";
-                    std::cin >> name;
-                    std::cout << "Quantité : ";
-                    std::cin >> quantity;
-                    s.updateProductQuantityByName(name, quantity);
-                    break;
-                }
-                case 4:
-                {
-                    // Retour au menu principal
-                    continueProgram = false;
-                    break;
-                }
-                default:
-                {
-                    std::cout << "Choix invalide" << std::endl;
-                    break;
-                }
-                }
+            case 1:
+            {
+                std::string title;
+                std::cout << "Entrez le titre du produit" << std::endl;
+                std::cin >> title;
+                std::string description;
+                std::cout << "Entrez la description du produit" << std::endl;
+                std::cin >> description;
+                int quantity;
+                std::cout << "Entrez la quantité du produit" << std::endl;
+                std::cin >> quantity;
+                double unitPrice;
+                std::cout << "Entrez le prix unitaire du produit" << std::endl;
+                std::cin >> unitPrice;
+                Product product(title, description, quantity, unitPrice);
+                store.addProduct(product);
+                break;
+            }
+            case 2:
+            {
+                store.printAllProducts();
+                break;
+            }
+            case 3:
+            {
+                std::string title;
+                std::cout << "Entrez le titre du produit" << std::endl;
+                std::cin >> title;
+                int quantity;
+                std::cout << "Entrez la quantité de produit à ajouter" << std::endl;
+                std::cin >> quantity;
+                store.updateProductQuantityByName(title, quantity);
+                break;
+            }
+            case 4:
+            {
+                break;
+            }
+            default:
+            {
+                std::cout << "Choix invalide" << std::endl;
+                break;
+            }
             }
         }
         case 2:
         {
-            // sous-menu de gestion des utilisateurs
-            while (continueProgram = true)
+            std::cout << "Gestion des utilisateurs \n1. Ajouter un client \n2. Afficher les clients \n3. Retour \n"
+                      << std::endl;
+            int choiceSecondaire;
+            std::cin >> choiceSecondaire;
+            switch (choiceSecondaire)
             {
-                std::cout << "Gestion des utilisateurs :" << std::endl;
-                std::cout << "1. Ajouter un client" << std::endl;
-                std::cout << "2. Afficher les clients" << std::endl;
-                std::cout << "3. Retour" << std::endl;
-                std::cout << "Votre choix : ";
-
-                int choice;
-                std::cin >> choice;
-
-                switch (choice)
-                {
-                case 1:
-                {
-                    // Ajout d'un client
-                    int id;
-                    std::string firstName;
-                    std::string lastName;
-                    std::cout << "Nom : ";
-                    std::cin >> firstName;
-                    std::cout << "Prénom : ";
-                    std::cin >> lastName;
-                    std::cout << "ID : ";
-                    std::cin >> id;
-                    Client c(id, firstName, lastName);
-                    s.addClient(c);
-                    break;
-                }
-                case 2:
-                {
-                    // Affichage des clients
-                    s.printAllClients();
-                    break;
-                }
-                case 3:
-                {
-                    // Retour au menu principal
-                    continueProgram = false;
-                    break;
-                }
-                default:
-                {
-                    std::cout << "Choix invalide" << std::endl;
-                    break;
-                }
-                }
+            case 1:
+            {
+                std::string firstName;
+                std::cout << "Entrez le prénom du client" << std::endl;
+                std::cin >> firstName;
+                std::string lastName;
+                std::cout << "Entrez le nom du client" << std::endl;
+                std::cin >> lastName;
+                Client client(store._clients.size() + 1, firstName, lastName);
+                store.addClient(client);
+                break;
+            }
+            case 2:
+            {
+                store.printAllClients();
+                break;
+            }
+            case 3:
+            {
+                exit;
+            }
+            default:
+            {
+                std::cout << "Choix invalide" << std::endl;
+                break;
+            }
             }
         }
         case 3:
         {
-            // sous-menu de gestion des commandes
-            while (continueProgram = true)
+            std::cout << "Gestion des commandes \n1. Ajouter une commande \n2. Afficher les commandes \n3. Changer le statut d'une commande \n4. Retour \n"
+                      << std::endl;
+            int choiceSecondaire;
+            std::cin >> choiceSecondaire;
+            switch (choiceSecondaire)
             {
-                std::cout << "Gestion des commandes :" << std::endl;
-                std::cout << "1. Ajouter une commande" << std::endl;
-                std::cout << "2. Afficher les commandes" << std::endl;
-                std::cout << "3. Retour" << std::endl;
-                std::cout << "Votre choix : ";
-
-                int choice;
-                std::cin >> choice;
-
-                switch (choice)
+            case 1:
+            {
+                // Création d'une commande
+                int clientID;
+                std::cout << "ID du client: " << std::endl;
+                std::cin >> clientID;
+                for (int i = 0; i < store._clients.size(); i++)
                 {
-                case 1:
-                {
-                    // Création d'une commande
-                    int clientID;
-                    std::cout << "ID om du client: " << std::endl;
-                    std::cin >> clientID;
-                    for (int i = 0; i < s._clients.size(); i++)
+                    if (store._clients[i].getId() == clientID)
                     {
-                        if (s._clients[i].getId() == clientID)
-                        {
-                            std::cout << "Client trouvé" << std::endl;
-                        }
+                        std::cout << "Client trouvé" << std::endl;
                     }
+                }
 
-                    Client c = s.printClientByIdOrName(clientID);
-                    Order o(c, std::vector<Product>(), "Pending", s._orders.size() + 1);
-                    std::string productName;
-                    while (true)
+                Client c = store.printClientByIdOrName(clientID);
+                Order o(c, std::vector<Product>(), "Pending", store._orders.size() + 1);
+                std::string productName;
+                while (true)
+                {
+                    std::cout << "Ajouter un produit (ou entrez 'done' pour valider la commande): ";
+                    std::cin >> productName;
+                    if (productName == "done")
                     {
-                        std::cout << "Ajouter un produit (ou entrez 'done' pour valider la commande): ";
-                        std::cin >> productName;
-                        if (productName == "done")
-                        {
-                            break;
-                        }
-                        Product p = s.printProductByName(productName);
-                        o.addProduct(p);
+                        break;
                     }
-                    s.addOrder(o);
-                    break;
+                    Product product = store.printProductByName(productName);
+                    o.addProduct(product);
                 }
-                case 2:
+                store.addOrder(o);
+                break;
+            }
+            case 2:
+            {
+                store.printAllOrders();
+                break;
+            }
+            case 3:
+            {
+                int orderID;
+                std::cout << "ID de la commande: " << std::endl;
+                std::cin >> orderID;
+                std::string status;
+                std::cout << "Nouveau statut: (1. Pending / 2. Shipped / 3. Delivered ) " << std::endl;
+                std::cin >> status;
+                if (status == "1")
                 {
-                    // Valider la commande d'un client
-                    std::string clientIdOrName;
-                    std::cout << "ID ou nom du client: ";
-                    std::cin >> clientIdOrName;
-                    s.validateClientOrder(clientIdOrName);
-                    break;
+                    status = "Pending";
+                    store.updateOrderStatus(orderID, status);
                 }
-                case 3:
+                else if (status == "2")
                 {
-                    // Modifier le statut d'une commande
-                    int orderId;
-                    std::string newStatus;
-                    std::cout << "ID de la commande: ";
-                    std::cin >> orderId;
-                    std::cout << "Nouveau statut: ";
-                    std::cin >> newStatus;
-                    s.updateOrderStatus(orderId, newStatus);
-                    break;
+                    status = "Shipped";
+                    store.updateOrderStatus(orderID, status);
                 }
-                case 4:
+                else if (status == "3")
                 {
-                    // Afficher toutes les commandes
-                    s.printAllOrders();
-                    break;
+                    status = "Delivered";
+                    store.updateOrderStatus(orderID, status);
                 }
-                case 5:
+                else
                 {
-                    // Retour au menu principal
-                    continueProgram = false;
-                    break;
+                    std::cout << "Statut invalide" << std::endl;
                 }
-                default:
-                {
-                    std::cout << "Choix invalide" << std::endl;
-                    break;
-                }
-                }
+            }
+            case 4:
+            {
+                break;
+            }
+            default:
+            {
+                std::cout << "Choix invalide" << std::endl;
+                break;
+            }
             }
         }
         case 4:
         {
-            // Quitter le programme
-            continueProgram = false;
+            quit = true;
             break;
         }
         default:
@@ -245,5 +236,3 @@ int main()
         }
         }
     }
-    return 0;
-}
